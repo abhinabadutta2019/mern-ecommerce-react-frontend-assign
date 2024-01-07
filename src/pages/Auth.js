@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 const Auth = () => {
+  const { login, apiUrl } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -9,6 +10,8 @@ const Auth = () => {
   const handleToggleForm = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
+
+  // console.log(JSON.parse(localStorage.getItem("user")));
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -24,7 +27,7 @@ const Auth = () => {
     e.preventDefault();
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL;
+      // const apiUrl = process.env.REACT_APP_API_URL;
       const authEndpoint = isLogin ? "login" : "register";
       const url = `${apiUrl}/api/users/${authEndpoint}`;
 
@@ -43,8 +46,13 @@ const Auth = () => {
       const data = await response.json();
 
       if (response.ok) {
+        //
+        console.log("data", data);
+        // Use the login function from AuthContext to update the user state
+        login(data.token);
+        // login({ token: data.token });
         // Login or register successful, save the token to localStorage
-        localStorage.setItem("token", data.token);
+        // localStorage.setItem("token", data.token);
         console.log("Token saved to localStorage:", data.token);
       } else {
         // Handle error
