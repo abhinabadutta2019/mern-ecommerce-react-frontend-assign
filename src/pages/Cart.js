@@ -21,10 +21,31 @@ const Cart = () => {
       }
 
       const data = await response.json();
-      console.log(data, "data");
       setCart(data.products);
     } catch (error) {
       console.error("Error fetching cart:", error);
+    }
+  };
+
+  const removeFromCart = async (productId) => {
+    try {
+      const response = await fetch(`${apiUrl}/api/cart/remove-from-cart`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("user"))}`,
+        },
+        body: JSON.stringify({ productId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to remove item from cart");
+      }
+
+      // Refresh the cart after removing the item
+      fetchCart();
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
     }
   };
 
@@ -49,6 +70,9 @@ const Cart = () => {
                 alt={item.productId.name}
                 style={{ width: "200px", height: "200px" }}
               />
+              <button onClick={() => removeFromCart(item.productId._id)}>
+                Remove from Cart
+              </button>
             </li>
           ))}
         </ul>
