@@ -21,14 +21,17 @@ const Home = () => {
       }
 
       const data = await response.json();
-      console.log(data.message); // You can handle the success message as needed
 
-      // Optionally, you can update the product list after adding to the cart
-      // For simplicity, you can refetch the entire product list
+      // Display a success alert
+      alert("Product added to the cart successfully!");
+
       const updatedProducts = await fetchProducts();
       setProducts(updatedProducts);
     } catch (error) {
       console.error("Error adding to cart:", error);
+
+      // Display an error alert
+      alert("Failed to add product to the cart. Please try again.");
     }
   };
 

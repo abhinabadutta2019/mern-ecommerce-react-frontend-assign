@@ -5,12 +5,14 @@ import {
   Routes,
   Route,
   Navigate,
+  Link,
 } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -18,7 +20,10 @@ const App = () => {
   return (
     <Router>
       <div>
-        <h1>MERN E-Commerce Frontend</h1>
+        <Link to={user ? "/" : "/auth"}>
+          <h1>QuikCart</h1>
+        </Link>
+        <Navbar />
         <Routes>
           <Route path="/" element={user ? <Home /> : <Navigate to="/auth" />} />
           <Route

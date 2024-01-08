@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+
 const Auth = () => {
   const { login, apiUrl } = useContext(AuthContext);
   const [username, setUsername] = useState("");
@@ -11,23 +12,10 @@ const Auth = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
 
-  // console.log(JSON.parse(localStorage.getItem("user")));
-
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // // Use fetch or axios to send the form data to your backend
-    // // For simplicity, we are logging the form data for now
-    // console.log({
-    //   username,
-    //   password,
-    //   email,
-    //   action: isLogin ? "Login" : "Register",
-    // });
-    //
     e.preventDefault();
 
     try {
-      // const apiUrl = process.env.REACT_APP_API_URL;
       const authEndpoint = isLogin ? "login" : "register";
       const url = `${apiUrl}/api/users/${authEndpoint}`;
 
@@ -46,20 +34,18 @@ const Auth = () => {
       const data = await response.json();
 
       if (response.ok) {
-        //
-        console.log("data", data);
-        // Use the login function from AuthContext to update the user state
+        // Display an alert on successful authentication
+        alert(`Authentication successful!`);
+
         login(data.token);
-        // login({ token: data.token });
-        // Login or register successful, save the token to localStorage
-        // localStorage.setItem("token", data.token);
-        console.log("Token saved to localStorage:", data.token);
       } else {
-        // Handle error
-        console.error("Authentication failed:", data.message);
+        // Display an alert on authentication error
+        alert(`Authentication failed: ${data.message}`);
       }
     } catch (error) {
       console.error("Error during authentication:", error);
+      // Display an alert on unexpected error
+      alert("An unexpected error occurred during authentication.");
     }
   };
 
@@ -102,11 +88,15 @@ const Auth = () => {
         <button type="submit">{isLogin ? "Login" : "Register"}</button>
       </form>
 
-      <p onClick={handleToggleForm}>
+      <button
+        // className="auth-button" // Apply the class for styling
+        type="button" // Specify the button type
+        onClick={handleToggleForm}
+      >
         {isLogin
           ? "Don't have an account? Register here."
           : "Already have an account? Login here."}
-      </p>
+      </button>
     </div>
   );
 };

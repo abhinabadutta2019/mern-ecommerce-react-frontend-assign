@@ -9,7 +9,6 @@ const AuthContextProvider = ({ children }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   //
   const login = (userData) => {
-    console.log("userData", userData);
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
   };

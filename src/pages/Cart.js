@@ -3,7 +3,10 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
+  const [cartData, setCartData] = useState({
+    cart: { products: [] },
+    totalValue: 0,
+  });
   const { apiUrl } = useContext(AuthContext);
 
   const fetchCart = async () => {
@@ -21,7 +24,8 @@ const Cart = () => {
       }
 
       const data = await response.json();
-      setCart(data.products);
+
+      setCartData(data);
     } catch (error) {
       console.error("Error fetching cart:", error);
     }
@@ -44,38 +48,50 @@ const Cart = () => {
 
       // Refresh the cart after removing the item
       fetchCart();
+
+      // Display a success alert
+      alert("Item removed from the cart successfully!");
     } catch (error) {
       console.error("Error removing item from cart:", error);
+
+      // Display an error alert
+      alert("Failed to remove item from the cart. Please try again.");
     }
   };
 
   useEffect(() => {
     // Fetch cart items when the component mounts
     fetchCart();
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  }, []);
 
   return (
     <div>
       <h2>Your Cart</h2>
-      {cart.length === 0 ? (
+      {cartData.cart.products.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <ul>
-          {cart.map((item) => (
-            <li key={item.productId._id}>
-              <h3>{item.productId.name}</h3>
-              <p>Quantity: {item.quantity}</p>
-              <img
-                src={item.productId.imagePath}
-                alt={item.productId.name}
-                style={{ width: "200px", height: "200px" }}
-              />
-              <button onClick={() => removeFromCart(item.productId._id)}>
-                Remove from Cart
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <p>Total Value: ${cartData.totalValue}</p>
+          {/*  */}
+          <ul>
+            {cartData.cart.products.map((item) => (
+              <li key={item.productId._id}>
+                <h3>{item.productId.name}</h3>
+                <p>Quantity: {item.quantity}</p>
+                <p>Price: ${item.productId.price}</p>
+                <p>Total: ${item.productId.price * item.quantity}</p>
+                <img
+                  src={item.productId.imagePath}
+                  alt={item.productId.name}
+                  style={{ width: "200px", height: "200px" }}
+                />
+                <button onClick={() => removeFromCart(item.productId._id)}>
+                  Remove from Cart
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
