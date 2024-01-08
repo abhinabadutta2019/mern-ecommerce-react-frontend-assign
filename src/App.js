@@ -25,11 +25,8 @@ const App = () => {
             path="/auth"
             element={!user ? <Auth /> : <Navigate to="/" replace />}
           />
-          {/* <Route
-            path="/cart"
-            element={user ? <Cart /> : <Navigate to="/auth" replace />}
-          /> */}
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={user ? <Cart /> : <Auth />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
