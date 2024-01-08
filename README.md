@@ -55,3 +55,23 @@ User data and passwords are securely stored in the MongoDB database.
 ## Conclusion
 
 The E-Commerce Application aims to provide users with a secure and user-friendly platform for online shopping, leveraging the MERN stack for efficient development and modern technologies for enhanced functionality.
+
+
+## Screenshot
+
+**Home**
+![image](https://github.com/abhinabadutta2019/mern-ecommerce-react-frontend-assign/assets/118996650/adca1038-cc99-4c44-ae25-6c1dc05eac57)
+
+**Cart**
+![image](https://github.com/abhinabadutta2019/mern-ecommerce-react-frontend-assign/assets/118996650/eabbd2bc-a72d-47ff-b444-f426b47c287f)
+
+
+**Login**
+![image](https://github.com/abhinabadutta2019/mern-ecommerce-react-frontend-assign/assets/118996650/df1ebcba-78fd-4a22-946e-0a3af8a3cb8b)
+
+**Register**
+
+![image](https://github.com/abhinabadutta2019/mern-ecommerce-react-frontend-assign/assets/118996650/601fb07e-d4e2-40ed-817a-a5d36615837e)
+
+
+
