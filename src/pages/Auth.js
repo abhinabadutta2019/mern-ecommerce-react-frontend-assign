@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Form, Button } from "react-bootstrap";
 
 const Auth = () => {
   const { login, apiUrl } = useContext(AuthContext);
@@ -34,69 +35,78 @@ const Auth = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Display an alert on successful authentication
         alert(`Authentication successful!`);
-
         login(data.token);
       } else {
-        // Display an alert on authentication error
         alert(`Authentication failed: ${data.message}`);
       }
     } catch (error) {
       console.error("Error during authentication:", error);
-      // Display an alert on unexpected error
       alert("An unexpected error occurred during authentication.");
     }
   };
 
   return (
-    <div>
-      <h2>{isLogin ? "Login" : "Register"}</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-
-        {!isLogin && (
-          <label>
-            Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <div style={{ width: "505px" }}>
+        <h2 style={{ textAlign: "center" }}>
+          {isLogin ? "Login" : "Register"}
+        </h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formUsername">
+            <Form.Label>Username:</Form.Label>
+            <Form.Control
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
-          </label>
-        )}
+          </Form.Group>
 
-        <button type="submit">{isLogin ? "Login" : "Register"}</button>
-      </form>
+          <Form.Group controlId="formPassword">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-      <button
-        // className="auth-button" // Apply the class for styling
-        type="button" // Specify the button type
-        onClick={handleToggleForm}
-      >
-        {isLogin
-          ? "Don't have an account? Register here."
-          : "Already have an account? Login here."}
-      </button>
+          {!isLogin && (
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
+          )}
+
+          <Button variant="primary" type="submit" style={{ width: "100%" }}>
+            {isLogin ? "Login" : "Register"}
+          </Button>
+        </Form>
+
+        <Button
+          variant="secondary"
+          onClick={handleToggleForm}
+          style={{ marginTop: "10px", width: "100%" }}
+        >
+          {isLogin
+            ? "Don't have an account? Register here."
+            : "Already have an account? Login here."}
+        </Button>
+      </div>
     </div>
   );
 };

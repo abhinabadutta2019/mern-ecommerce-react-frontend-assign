@@ -1,0 +1,10 @@
+.custom-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; /* Preserve aspect ratio while covering the specified dimensions */
+}
+
+.list-group-custom {
+  max-width: 700px; /* Adjust the max-width as needed */
+  margin: auto; /* Center the list-group */
+}

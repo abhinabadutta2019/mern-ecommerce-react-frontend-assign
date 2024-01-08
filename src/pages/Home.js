@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "../Styles/Home.css"; // Import the custom CSS file
 const Home = () => {
   const [products, setProducts] = useState([]);
   const { apiUrl } = useContext(AuthContext);
@@ -63,20 +65,25 @@ const Home = () => {
   }, []); // Empty dependency array means this effect runs once after the initial render
 
   return (
-    <div>
+    <div className="container mt-5 text-center">
       <h2>Product List</h2>
-      <ul>
+      <ul className="list-group list-group-custom">
         {products.map((product) => (
-          <li key={product._id}>
+          <li key={product._id} className="list-group-item">
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
             <img
               src={product.imagePath}
               alt={product.name}
-              style={{ width: "200px", height: "200px" }}
+              className="img-fluid"
+              style={{ maxWidth: "200px", maxHeight: "200px" }}
             />
-            <button onClick={() => handleAddToCart(product._id)}>
+            <br />
+            <button
+              onClick={() => handleAddToCart(product._id)}
+              className="btn btn-primary mt-2"
+            >
               Add to Cart
             </button>
           </li>

@@ -20,9 +20,9 @@ const App = () => {
   return (
     <Router>
       <div>
-        <Link to={user ? "/" : "/auth"}>
+        {/* <Link to={user ? "/" : "/auth"}>
           <h1>QuikCart</h1>
-        </Link>
+        </Link> */}
         <Navbar />
         <Routes>
           <Route path="/" element={user ? <Home /> : <Navigate to="/auth" />} />

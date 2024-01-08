@@ -1,6 +1,7 @@
-// components/Cart.js
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../Styles/Cart.css"; // Import the custom CSS file
 
 const Cart = () => {
   const [cartData, setCartData] = useState({
@@ -65,17 +66,16 @@ const Cart = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container mt-5 text-center">
       <h2>Your Cart</h2>
       {cartData.cart.products.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <div>
-          <p>Total Value: ${cartData.totalValue}</p>
-          {/*  */}
-          <ul>
+          <p className="mb-3">Total Value: ${cartData.totalValue}</p>
+          <ul className="list-group list-group-custom">
             {cartData.cart.products.map((item) => (
-              <li key={item.productId._id}>
+              <li key={item.productId._id} className="list-group-item">
                 <h3>{item.productId.name}</h3>
                 <p>Quantity: {item.quantity}</p>
                 <p>Price: ${item.productId.price}</p>
@@ -83,9 +83,13 @@ const Cart = () => {
                 <img
                   src={item.productId.imagePath}
                   alt={item.productId.name}
-                  style={{ width: "200px", height: "200px" }}
+                  className="custom-image"
                 />
-                <button onClick={() => removeFromCart(item.productId._id)}>
+                <br />
+                <button
+                  onClick={() => removeFromCart(item.productId._id)}
+                  className="btn btn-danger mt-2"
+                >
                   Remove from Cart
                 </button>
               </li>

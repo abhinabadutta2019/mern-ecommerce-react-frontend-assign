@@ -1,0 +1,5 @@
+/* src/Styles/Home.css */
+.list-group-custom {
+  max-width: 700px; /* Adjust the max-width as needed */
+  margin: auto; /* Center the list-group */
+}
